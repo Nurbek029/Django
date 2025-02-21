@@ -44,6 +44,14 @@ class News(models.Model):
     title = models.CharField(max_length=123)
     description = models.TextField()
     create_data = models.DateTimeField(auto_now_add=True)  
-          
+
     def __str__(self):
         return self.title
+
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name

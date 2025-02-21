@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import News, Car, Color, Category
+from .models import News, Car, Color, Category, Student
 
 def news_create_view(request):
     
@@ -38,3 +38,16 @@ def car_create_view(request):
         return redirect('news_create')
 
     return render(request, 'app/car_create.html', context={"categories":categories, "colors":colors})
+
+def student_registration(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        age = request.POST['age']
+        email = request.POST['email']
+
+        student = Student(name=name, age=age, email=email)
+        student.save()
+
+        return redirect('student_registration')
+
+    return render(request, 'app/student_registration.html')
