@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><Title></Title></title>
+</head>
+<body>
+    <center>
+        <h1>Create Cars</h1>
+        <form method="POST" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Categore</label>
+            <select name="category_id" id="category_id">
+                {% for category in categories %}
+                    <option value="{{category.id}}">{{ category.title }}</option>
+                  {% endfor %}
+            </select>
+            <br>
+            <br>
+            <br>
+            <label>Title</label>
+            <input type="text" name="title" placeholder="Input title">
+            <br>
+            <br>
+            <br>
+            <label>Model</label>
+            <input type="text" name="model" placeholder="Input model" >
+            <br>
+            <br>
+            <br>
+            <label>year</label>
+            <input type="number" name="year" placeholder="Input year">
+            <br>
+            <br>
+            <br>
+            <label>Value</label>
+            <input type="number" name="engine_capacity" placeholder="Input value">
+            <br>
+            <br>
+            <br>
+            <label>odometer</label>
+            <input type="number" name="odometer" placeholder="Input odometer">
+            <br>
+            <br>
+            <br>
+            <label>Color</label>
+            <select name="color_id">
+                {% for color in colors %}
+                    <option value="{{ color.id }}">{{ color.title }}</option>
+                {% endfor %}
+            </select><br>
+            <br>
+            <br>
+            <label>Image</label>
+            <input type="file" name="image" >
+            <br>
+            <br>
+            <br>
+            <button type="submit">Create</button>
+        </form>
+
+     </center>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><Title></Title></title>
+</head>
+<body>
+    <center>
+        <h1>Create News</h1>
+
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <label>Name</label>
+            <input type="text" name="title" placeholder="Input title">
+            <br>
+            <br>
+            <br>
+            <label>Description</label>
+            <input type="text" name="description" placeholder="Input description">
+            <br>
+            <br>
+            <br>
+            <button type="submit">Create</button>
+        </form>
+
+     </center>
+</body>
+</html>
