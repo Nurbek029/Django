@@ -1,5 +1,17 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import News, Car, Color, Category, Student
+from .forms import CarCreateForm
+
+def index_view(request):
+    search = request.GET.get('search', '') 
+    cars = Car.objects.all()
+
+    if 'search' in request.GET:
+        cars = Car.objects.filter(Q(title__icontains=search) | Q(description__icontains=search))
+
+    return render(request, 'app/index.html', {'cars': cars})
+
 
 def news_create_view(request):
     
@@ -51,3 +63,15 @@ def student_registration(request):
         return redirect('student_registration')
 
     return render(request, 'app/student_registration.html')
+
+def car_create_view_2(request):
+
+    if request.method == 'POST':
+        form = CarCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = CarCreateForm()
+
+    return render(request, 'app/car_create_2.html', {"form": form})
