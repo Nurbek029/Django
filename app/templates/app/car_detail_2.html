@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование авто</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+        input, select {
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>{{ car.title }}</h1>
+    <img src="{{ car.image.url }}" alt="Изображение авто">
+    
+    <h1>Изменить объект</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label for="category_id">Категория:</label>
+        <select name="category_id" id="category_id">
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == car.category.id %}selected{% endif %}>
+                    {{ category.title }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="title">Название:</label>
+        <input type="text" name="title" id="title" placeholder="Введите название" value="{{ car.title }}" required>
+
+        <label for="model">Модель:</label>
+        <input type="text" name="model" id="model" placeholder="Введите модель" value="{{ car.model }}" required>
+
+        <label for="year">Год выпуска:</label>
+        <input type="number" name="year" id="year" placeholder="Введите год" value="{{ car.year }}" required>
+
+        <label for="engine_capacity">Объем двигателя:</label>
+        <input type="number" name="engine_capacity" id="engine_capacity" placeholder="Введите объем" value="{{ car.engine_capacity }}" required>
+
+        <label for="odometer">Пробег (км):</label>
+        <input type="number" name="odometer" id="odometer" placeholder="Введите пробег" value="{{ car.odometer }}" required>
+
+        <label for="color_id">Цвет:</label>
+        <select name="color_id" id="color_id">
+            {% for color in colors %}
+                <option value="{{ color.id }}" {% if color.id == car.color.id %}selected{% endif %}>
+                    {{ color.title }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="image">Изображение:</label>
+        <input type="file" name="image" id="image">
+
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+</body>
+</html>
